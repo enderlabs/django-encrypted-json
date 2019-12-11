@@ -2,6 +2,7 @@ import json
 
 import cryptography.fernet
 from django.conf import settings
+from django.utils.encoding import force_bytes, force_text
 from django_pgjson.fields import get_encoder_class
 import six
 
@@ -87,11 +88,11 @@ def encrypt_values(data, encrypter=None, skip_keys=None):
         }
 
     if isinstance(data, six.string_types):
-        return encrypter(data.encode('unicode_escape'))
+        return force_text(encrypter(data.encode('unicode_escape')))
 
-    return encrypter(
-        bytes(json.dumps(data, cls=get_encoder_class()))
-    )
+    return force_text(encrypter(
+        force_bytes(json.dumps(data, cls=get_encoder_class()))
+    ))
 
 
 def decrypt_values(data, decrypter=None):
