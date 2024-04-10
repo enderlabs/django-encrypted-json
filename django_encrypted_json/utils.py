@@ -2,7 +2,7 @@ import json
 
 import cryptography.fernet
 from django.conf import settings
-from django.utils.encoding import force_bytes, force_text
+from django.utils.encoding import force_bytes, force_str as force_text
 from django_pgjson.fields import get_encoder_class
 import six
 

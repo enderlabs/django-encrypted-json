@@ -22,8 +22,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '^e_&(g0ml7nv(!*hs&eg#2fwb&npugs9l6o-#14$%s6hjwie(b'
 FIELD_ENCRYPTION_KEY = [
-    bytes('4MC8zC3jFPdjZm5Mf_2nyi44K8HChtaEoMv8nV6CNMo='),
-    bytes('293xHgWwVwu1CrXTc-i1n5olreSGelFAxsbYcfWl-0k='),
+    bytes('4MC8zC3jFPdjZm5Mf_2nyi44K8HChtaEoMv8nV6CNMo=', encoding='utf8'),
+    bytes('293xHgWwVwu1CrXTc-i1n5olreSGelFAxsbYcfWl-0k=', encoding='utf8'),
 ]
 
 PGJSON_ENCODER_CLASS = "django.core.serializers.json.DjangoJSONEncoder"
