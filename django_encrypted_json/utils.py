@@ -2,9 +2,8 @@ import json
 
 import cryptography.fernet
 from django.conf import settings
-from django.utils.encoding import force_bytes, force_str as force_text
+from django.utils.encoding import force_bytes, force_str
 from django_pgjson.fields import get_encoder_class
-import six
 
 # Allow the use of key rotation
 if isinstance(settings.FIELD_ENCRYPTION_KEY, (tuple, list)):
@@ -84,13 +83,13 @@ def encrypt_values(data, encrypter=None, skip_keys=None):
         return {
             key: pick_encrypter(key, skip_keys, encrypt_values)(
                 value, encrypter, skip_keys)
-            for key, value in six.iteritems(data)
+            for key, value in data.items()
         }
 
-    if isinstance(data, six.string_types):
-        return force_text(encrypter(data.encode('unicode_escape')))
+    if isinstance(data, str):
+        return force_str(encrypter(data.encode('unicode_escape')))
 
-    return force_text(encrypter(
+    return force_str(encrypter(
         force_bytes(json.dumps(data, cls=get_encoder_class()))
     ))
 
@@ -120,10 +119,10 @@ def decrypt_values(data, decrypter=None):
     if isinstance(data, dict):
         return {
             key: decrypt_values(value, decrypter)
-            for key, value in six.iteritems(data)
+            for key, value in data.items()
         }
 
-    if isinstance(data, six.string_types):
+    if isinstance(data, str):
         # string data! if we got a string or unicode convert it to
         # bytes first, as per http://stackoverflow.com/a/11174804.
         #
