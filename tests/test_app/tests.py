@@ -7,7 +7,6 @@ from django.test import TestCase
 from django.utils import timezone
 
 from .models import TestModel
-import six
 # Create your tests here.
 
 
@@ -50,8 +49,8 @@ class PlainJsonField(TestCase):
     def test_default_create(self):
         instance = TestModel.objects.create()
 
-        self.assertEquals(instance.json, {})
-        self.assertEquals(instance.optional_json, None)
+        self.assertEqual(instance.json, {})
+        self.assertEqual(instance.optional_json, None)
 
     def test_saving_data(self):
         instance = TestModel.objects.create()
@@ -84,10 +83,10 @@ class PlainJsonField(TestCase):
 
         self.assertIsInstance(raw_db_data, dict)
         self.assertNotEqual(data['test'], raw_db_data['test'])
-        self.assertIsInstance(raw_db_data['test'], six.string_types)
-        self.assertIsInstance(raw_db_data['datetime'], six.string_types)
-        self.assertIsInstance(raw_db_data['date'], six.string_types)
-        self.assertIsInstance(raw_db_data['with_tz'], six.string_types)
+        self.assertIsInstance(raw_db_data['test'], str)
+        self.assertIsInstance(raw_db_data['datetime'], str)
+        self.assertIsInstance(raw_db_data['date'], str)
+        self.assertIsInstance(raw_db_data['with_tz'], str)
         self.assertIsInstance(raw_db_data['many'], list)
         self.assertIsInstance(raw_db_data['nested_1'], dict)
         self.assertIsInstance(raw_db_data['many_nested'], list)
@@ -123,13 +122,13 @@ class PlainJsonField(TestCase):
         raw_db_data = row[0]
 
         self.assertIsInstance(raw_db_data, dict)
-        self.assertEquals(data['test'], raw_db_data['test'])
-        self.assertEquals(data['many_nested'], raw_db_data['many_nested'])
+        self.assertEqual(data['test'], raw_db_data['test'])
+        self.assertEqual(data['many_nested'], raw_db_data['many_nested'])
         self.assertNotEqual(data['many'], raw_db_data['many'])
         self.assertNotEqual(data['nested_1'], raw_db_data['nested_1'])
-        self.assertIsInstance(raw_db_data['datetime'], six.string_types)
-        self.assertIsInstance(raw_db_data['date'], six.string_types)
-        self.assertIsInstance(raw_db_data['with_tz'], six.string_types)
+        self.assertIsInstance(raw_db_data['datetime'], str)
+        self.assertIsInstance(raw_db_data['date'], str)
+        self.assertIsInstance(raw_db_data['with_tz'], str)
 
     def test_latin1(self):
         instance = TestModel.objects.create()

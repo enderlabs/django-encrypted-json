@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
+# Generated for Django 5.2
 from django.db import models, migrations
 import django_encrypted_json.fields
 
